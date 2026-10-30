@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abyss Games - Reviews</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url('https://64.media.tumblr.com/586097ea810a24bfa440a14ecf3ef1d4/tumblr_nmqi95bduu1rjrskmo2_r1_400.gifv');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        header {
+            background-color: rgba(155, 29, 29, 0.95);
+            padding: 15px 5%;
+        }
+
+        header h1 {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            margin-right: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff7777;
+        }
+
+        #reviews {
+            width: 90%;
+            max-width: 1250px;
+            margin: 30px auto;
+        }
+
+        #reviews > h2,
+        #reviews > p {
+            text-shadow: 2px 2px 4px black;
+        }
+
+        /* CARD PRINCIPAL DO JOGO */
+        .jogo {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 25px;
+            margin: 25px 0;
+            border: 3px solid #a44316;
+            border-radius: 10px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .jogo:hover {
+            transform: scale(1.01);
+            border-color: red;
+        }
+
+        .cabecalho-jogo {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .cabecalho-jogo img {
+            width: 260px;
+            max-width: 40%;
+            border-radius: 8px;
+            border: 2px solid #a44316;
+        }
+
+        .titulo-jogo h3 {
+            font-size: 28px;
+            margin: 0 0 12px;
+        }
+
+        .titulo-jogo p {
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .etiqueta {
+            display: inline-block;
+            background-color: #713017;
+            padding: 7px 10px;
+            border-radius: 5px;
+            margin: 4px 3px 0 0;
+            font-size: 13px;
+        }
+
+        /* DIVISÃO ENTRE CRÍTICA E JOGADORES */
+        .divisao-reviews {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            align-items: stretch;
+        }
+
+        .painel {
+            background-color: rgba(30, 30, 30, 0.95);
+            border: 2px solid #49352c;
+            border-radius: 10px;
+            padding: 20px;
+            min-width: 0;
+        }
+
+        .painel h4 {
+            font-size: 21px;
+            margin-top: 0;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #a44316;
+        }
+
+        /* CRÍTICA ESPECIALIZADA */
+        .nota-critica {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background-color: #182b20;
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+        }
+
+        .numero-nota {
+            background-color: #36a267;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .nota-critica p {
+            margin: 5px 0;
+            line-height: 1.5;
+        }
+
+        .painel p {
+            line-height: 1.6;
+        }
+
+        .pontos h5 {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .pontos ul {
+            padding-left: 22px;
+            line-height: 1.8;
+        }
+
+        /* OPINIÕES DOS JOGADORES */
+        .avaliacao-jogador {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            padding: 15px 0;
+            border-bottom: 1px solid #51413b;
+        }
+
+        .avaliacao-jogador:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .avatar {
+            width: 55px;
+            height: 55px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            border: 2px solid #a44316;
+            object-fit: cover;
+        }
+
+        .conteudo-jogador {
+            min-width: 0;
+        }
+
+        .nome-jogador {
+            font-weight: bold;
+            color: #ffbd8c;
+            margin: 0 0 5px;
+        }
+
+        .nota-jogador {
+            color: #ffd45c;
+            font-size: 14px;
+            margin: 0 0 8px;
+        }
+
+        .comentario {
+            color: #e0e0e0;
+            margin: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .aviso {
+            color: #aaa;
+            font-size: 12px;
+            margin-top: 18px;
+        }
+
+        /* OUTROS JOGOS */
+        .outros-jogos {
+            margin-top: 40px;
+        }
+
+        .outro-jogo {
+            background-color: rgba(0, 0, 0, 0.88);
+            padding: 20px;
+            margin: 20px 0;
+            border: 3px solid #a44316;
+            border-radius: 10px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .outro-jogo:hover {
+            transform: scale(1.02);
+            border-color: red;
+        }
+
+        .outro-jogo img {
+            width: 360px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 3px solid #a44316;
+        }
+
+        .outro-jogo p {
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 15px;
+            text-align: center;
+        }
+
+        
+/* AVALIAÇÕES DOS OUTROS JOGOS */
+.reviews-outro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-top: 25px;
+}
+
+.reviews-outro .painel {
+    background-color: rgba(30, 30, 30, 0.95);
+    border: 2px solid #49352c;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.reviews-outro .painel h4 {
+    font-size: 21px;
+    margin-top: 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #a44316;
+}
+
+.reviews-outro .nota-critica {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background-color: #182b20;
+    padding: 18px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+}
+
+.reviews-outro .numero-nota {
+    background-color: #36a267;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.reviews-outro .avaliacao-jogador {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    padding: 15px 0;
+    border-bottom: 1px solid #51413b;
+}
+
+.reviews-outro .avaliacao-jogador:last-child {
+    border-bottom: none;
+}
+
+.reviews-outro .avatar {
+    width: 55px;
+    height: 55px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 2px solid #a44316;
+    object-fit: cover;
+}
+
+.reviews-outro .nome-jogador {
+    font-weight: bold;
+    color: #ffbd8c;
+    margin: 0 0 5px;
+}
+
+.reviews-outro .nota-jogador {
+    color: #ffd45c;
+    font-size: 14px;
+    margin: 0 0 8px;
+}
+
+.reviews-outro .comentario {
+    color: #e0e0e0;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.reviews-outro p {
+    line-height: 1.6;
+}
+
+@media (max-width: 800px) {
+    .reviews-outro {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .reviews-outro .painel {
+        padding: 13px;
+    }
+
+    .reviews-outro .nota-critica {
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .reviews-outro .numero-nota {
+        font-size: 24px;
+        padding: 12px;
+    }
+
+    .reviews-outro .avatar {
+        width: 43px;
+        height: 43px;
+    }
+}
+
+
+        /* AJUSTE PARA CELULAR */
+        @media (max-width: 800px) {
+            .divisao-reviews {
+                grid-template-columns: 1fr;
+            }
+
+            .cabecalho-jogo {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cabecalho-jogo img {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 23px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px 10px 5px 0;
+            }
+
+            #reviews {
+                width: 94%;
+            }
+
+            .jogo {
+                padding: 13px;
+            }
+
+            .painel {
+                padding: 13px;
+            }
+
+            .nota-critica {
+                gap: 12px;
+                padding: 12px;
+            }
+
+            .numero-nota {
+                font-size: 24px;
+                padding: 12px;
+            }
+
+            .avatar {
+                width: 43px;
+                height: 43px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Abyss Games - O seu universo gamer</h1>
+
+        <nav>
+            <a href="principal.html">Início</a>
+            <a href="reviews.html">Reviews</a>
+            <a href="biblioteca.html">Biblioteca</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="reviews">
+
+            <h2>🎮 Reviews e análises</h2>
+            <p>Veja o que a crítica especializada e os jogadores pensam dos seus jogos favoritos!</p>
+
+            <!-- MINECRAFT -->
+            <article class="jogo">
+
+                <div class="cabecalho-jogo">
+
+                    <img
+                        src="https://i.pinimg.com/1200x/24/b4/a1/24b4a1a3db937ab7254575f70922a103.jpg"
+                        alt="Minecraft"
+                    >
+
+                    <div class="titulo-jogo">
+                        <h3>⛏️ Minecraft — Criatividade sem limites</h3>
+
+                        <p>
+                            Explore mundos infinitos, construa suas próprias criações,
+                            enfrente monstros e sobreviva sozinho ou com seus amigos.
+                            Em Minecraft, a aventura depende da imaginação de cada jogador.
+                        </p>
+
+                        <span class="etiqueta">Sobrevivência</span>
+                        <span class="etiqueta">Construção</span>
+                        <span class="etiqueta">Mundo aberto</span>
+                        <span class="etiqueta">Multiplayer</span>
+                    </div>
+
+                </div>
+
+                <div class="divisao-reviews">
+
+                    <!-- LADO ESQUERDO: CRÍTICA -->
+                    <section class="painel">
+
+                        <h4>📰 Crítica especializada</h4>
+
+                        <div class="nota-critica">
+                            <div class="numero-nota">93</div>
+
+                            <div>
+                                <strong>Metascore</strong>
+                                <p>Metacritic — versão para PC</p>
+                                <p>De acordo com a pontuação agregada da crítica.</p>
+                            </div>
+                        </div>
+
+                        <p>
+                            Minecraft se destaca pela liberdade oferecida ao jogador.
+                            Seu mundo aberto permite construir, explorar e experimentar
+                            diferentes estilos de jogo, tornando cada aventura única.
+                        </p>
+
+                        <div class="pontos">
+                            <h5>✅ Pontos positivos</h5>
+                            <ul>
+                                <li>Liberdade para construir e criar.</li>
+                                <li>Grande variedade de possibilidades.</li>
+                                <li>Modo multiplayer e comunidade ativa.</li>
+                                <li>Rejogabilidade praticamente ilimitada.</li>
+                            </ul>
+
+                            <h5>⚠️ Pontos negativos</h5>
+                            <ul>
+                                <li>Pode parecer repetitivo para alguns jogadores.</li>
+                                <li>O visual simples pode não agradar a todos.</li>
+                                <li>Alguns jogadores precisam de tempo para aprender.</li>
+                            </ul>
+                        </div>
+
+                        <p class="aviso">
+                            A nota é uma referência agregada da crítica e pode variar
+                            conforme a plataforma e a versão do jogo.
+                        </p>
+
+                    </section>
+
+                    <!-- LADO DIREITO: JOGADORES -->
+                    <section class="painel">
+
+                        <h4>🧑‍🤝‍🧑 Opinião dos jogadores</h4>
+
+                        <div class="avaliacao-jogador">
+
+                            <img
+                                class="avatar"
+                                src="https://api.dicebear.com/9.x/avataaars/svg?seed=Alex"
+                                alt="Avatar de AlexCraft"
+                            >
+
+                            <div class="conteudo-jogador">
+                                <p class="nome-jogador">AlexCraft</p>
+                                <p class="nota-jogador">★★★★★ — 10/10</p>
+
+                                <p class="comentario">
+                                    "Jogo há anos e sempre encontro alguma coisa nova
+                                    para fazer. Construir uma casa e depois transformar
+                                    tudo numa cidade é bom demais."
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="avaliacao-jogador">
+
+                            <img
+                                class="avatar"
+                                src="https://api.dicebear.com/9.x/avataaars/svg?seed=PixelNinja"
+                                alt="Avatar de PixelNinja"
+                            >
+
+                            <div class="conteudo-jogador">
+                                <p class="nome-jogador">PixelNinja</p>
+                                <p class="nota-jogador">★★★★☆ — 8/10</p>
+
+                                <p class="comentario">
+                                    "A sobrevivência é muito divertida, principalmente
+                                    jogando com amigos. Só acho que algumas partes
+                                    poderiam ter mais variedade."
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="avaliacao-jogador">
+
+                            <img
+                                class="avatar"
+                                src="https://api.dicebear.com/9.x/avataaars/svg?seed=EnderGamer"
+                                alt="Avatar de EnderGamer"
+                            >
+
+                            <div class="conteudo-jogador">
+                                <p class="nome-jogador">EnderGamer</p>
+                                <p class="nota-jogador">★★★★★ — 9/10</p>
+
+                                <p class="comentario">
+                                    "A melhor parte é poder jogar do seu jeito.
+                                    Dá para passar horas explorando, construindo
+                                    ou tentando derrotar os chefes."
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </article>
+
+            <!-- OUTROS JOGOS -->
+            <section class="outros-jogos">
+
+                <h2>🔥 Mais reviews</h2>
+
+
+<article class="outro-jogo">
+
+    <h3>⭐ Red Dead Redemption 2 — Uma aventura inesquecível</h3>
+
+    <p>
+        Red Dead Redemption 2 coloca o jogador no Velho Oeste
+        em uma história cheia de ação, exploração e personagens marcantes.
+    </p>
+
+    <img
+        src="https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/header.jpg"
+        alt="Red Dead Redemption 2"
+    >
+
+    <div class="reviews-outro">
+
+        <section class="painel">
+            <h4>📰 Crítica especializada</h4>
+
+            <div class="nota-critica">
+                <div class="numero-nota">97</div>
+                <div>
+                    <strong>Metascore</strong>
+                    <p>Metacritic — versão para PC</p>
+                    <p>Referência da avaliação agregada da crítica.</p>
+                </div>
+            </div>
+
+            <p>
+                O jogo se destaca pela narrativa envolvente,
+                pelo mundo aberto detalhado e pelos personagens.
+            </p>
+
+            <h4>✅ Pontos positivos</h4>
+            <ul>
+                <li>História marcante.</li>
+                <li>Mundo aberto muito detalhado.</li>
+                <li>Gráficos e ambientação.</li>
+            </ul>
+
+            <h4>⚠️ Pontos negativos</h4>
+            <ul>
+                <li>Ritmo lento em algumas missões.</li>
+                <li>Controles podem parecer complexos.</li>
+            </ul>
+        </section>
+
+        <section class="painel">
+            <h4>🧑‍🤝‍🧑 Opinião dos jogadores</h4>
+
+            <div class="avaliacao-jogador">
+                <img class="avatar"
+                     src="https://api.dicebear.com/9.x/avataaars/svg?seed=ArthurGamer"
+                     alt="Avatar de ArthurGamer">
+
+                <div class="conteudo-jogador">
+                    <p class="nome-jogador">ArthurGamer</p>
+                    <p class="nota-jogador">★★★★★ — 10/10</p>
+                    <p class="comentario">
+                        "A história é incrível e o mundo parece vivo.
+                        Sempre encontro algo novo durante a exploração."
+                    </p>
+                </div>
+            </div>
+
+            <div class="avaliacao-jogador">
+                <img class="avatar"
+                     src="https://api.dicebear.com/9.x/avataaars/svg?seed=WildWest"
+                     alt="Avatar de WildWest">
+
+                <div class="conteudo-jogador">
+                    <p class="nome-jogador">WildWest</p>
+                    <p class="nota-jogador">★★★★☆ — 8/10</p>
+                    <p class="comentario">
+                        "Os gráficos são excelentes e as missões
+                        são interessantes, mas algumas são demoradas."
+                    </p>
+                </div>
+            </div>
+
+            <div class="avaliacao-jogador">
+                <img class="avatar"
+                     src="https://api.dicebear.com/9.x/avataaars/svg?seed=CowboyBR"
+                     alt="Avatar de CowboyBR">
+
+                <div class="conteudo-jogador">
+                    <p class="nome-jogador">CowboyBR</p>
+                    <p class="nota-jogador">★★★★★ — 9/10</p>
+                    <p class="comentario">
+                        "Explorar o mapa, caçar e conhecer os personagens
+                        faz o jogo valer muito a pena."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</article>
+
+
+                
+<article class="outro-jogo">
+
+    <h3>⭐ Cyberpunk 2077 — O futuro nas suas mãos</h3>
+
+    <p>
+        Explore Night City, uma metrópole futurista cheia de tecnologia,
+        missões, escolhas e personagens marcantes.
+    </p>
+
+    <img
+        src="https://cdn.cloudflare.steamstatic.com/steam/apps/1091500/header.jpg"
+        alt="Cyberpunk 2077"
+    >
+
+    <div class="reviews-outro">
+
+        <section class="painel">
+            <h4>📰 Crítica especializada</h4>
+
+            <div class="nota-critica">
+                <div class="numero-nota">86</div>
+                <div>
+                    <strong>Metascore</strong>
+                    <p>Metacritic — versão para PC</p>
+                    <p>Referência da avaliação agregada da crítica.</p>
+                </div>
+            </div>
+
+            <p>
+                Cyberpunk 2077 oferece uma cidade futurista detalhada,
+                missões variadas e diversas possibilidades de personalização.
+            </p>
+
+            <h4>✅ Pontos positivos</h4>
+            <ul>
+                <li>Ambientação futurista impressionante.</li>
+                <li>História e personagens marcantes.</li>
+                <li>Personalização de habilidades e equipamentos.</li>
+            </ul>
+
+            <h4>⚠️ Pontos negativos</h4>
+            <ul>
+                <li>Exige bastante do computador em configurações altas.</li>
+                <li>Algumas missões secundárias podem se repetir.</li>
+            </ul>
+        </section>
+
+        <section class="painel">
+            <h4>🧑‍🤝‍🧑 Opinião dos jogadores</h4>
+
+            <div class="avaliacao-jogador">
+                <img class="avatar"
+                     src="https://api.dicebear.com/9.x/avataaars/svg?seed=NightCity"
+                     alt="Avatar de NightCity">
+
+                <div class="conteudo-jogador">
+                    <p class="nome-jogador">NightCity</p>
+                    <p class="nota-jogador">★★★★★ — 10/10</p>
+                    <p class="comentario">
+                        "A cidade é incrível e as missões principais
+                        conseguem prender minha atenção."
+                    </p>
+                </div>
+            </div>
+
+            <div class="avaliacao-jogador">
+                <img class="avatar"
+                     src="https://api.dicebear.com/9.x/avataaars/svg?seed=CyberBR"
+                     alt="Avatar de CyberBR">
+
+                <div class="conteudo-jogador">
+                    <p class="nome-jogador">CyberBR</p>
+                    <p class="nota-jogador">★★★★☆ — 8/10</p>
+                    <p class="comentario">
+                        "Gostei muito das armas, das habilidades
+                        e das possibilidades de personalização."
+                    </p>
+                </div>
+            </div>
+
+            <div class="avaliacao-jogador">
+                <img class="avatar"
+                     src="https://api.dicebear.com/9.x/avataaars/svg?seed=NeonPlayer"
+                     alt="Avatar de NeonPlayer">
+
+                <div class="conteudo-jogador">
+                    <p class="nome-jogador">NeonPlayer</p>
+                    <p class="nota-jogador">★★★★☆ — 9/10</p>
+                    <p class="comentario">
+                        "Night City tem uma atmosfera única.
+                        Só precisei ajustar as configurações para rodar melhor."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</article>
+
+
+</body>
+</html>
